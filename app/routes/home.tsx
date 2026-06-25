@@ -6,7 +6,7 @@ import ResumeCard from "~/components/ResumeCard";
 import { usePuterStore } from "~/lib/puter";
 import { useNavigate } from "react-router";
 import { useEffect } from "react";
-
+import bg from "~/../public/images/bg-main.svg";
 export function meta({ }: Route.MetaArgs) {
   return [
     { title: "Resumind" },
@@ -19,10 +19,10 @@ export default function Home() {
     const navigate = useNavigate()
     
     useEffect(()=> {
-        if(auth.isAuthenticated) navigate('/auth?next=/') 
+        if(!auth.isAuthenticated) navigate('/auth?next=/')
     }, [auth.isAuthenticated ])
 
-  return <main className="bg-[url('/images/bg-main.svg') bg-cover]">
+  return <main style={{ backgroundImage: `url(${bg})` }} className="bg-cover]">
     <Navbar />
      
     <section className="main-section"> 
