@@ -7,9 +7,23 @@ const Upload = () => {
 
     const [isProcessing, setIsProcessing] = useState(false);
     const [statusText, setStatusText] = useState('');
+    const [file , setFile] = useState<File | null>(null)
 
+    const handleFileSelect = (file : File | null ) => {
+        setFile(file)
+    }
     const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+        const form = e.currentTarget.closest('form');
+        if(!form) return;
+        const formData = new FormData(form);
 
+        const companyName = formData.get('campany-name')
+        const jobTitle = formData.get('jobs-title')
+        const jobsDescription = formData.get('jobs-description')
+        console.log({
+            companyName , jobTitle , jobsDescription , file
+        })
     }
     return (
         <main style={{ backgroundImage: `url(${bg})` }} className="bg-cover]">
@@ -42,7 +56,7 @@ const Upload = () => {
                             </div>
                             <div className='form-div'>
                                 <label htmlFor='uploader'>Upload resume</label>
-                                <FileUploader/>
+                                <FileUploader onFileSelect={handleFileSelect}/>
                             </div>
                             <button className='primary-button' type='submit'>
                                 Analyse resume
